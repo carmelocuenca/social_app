@@ -124,6 +124,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (3.4.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -233,6 +234,7 @@ DEPENDENCIES
   jbuilder (= 1.0.2)
   jquery-rails (= 3.0.4)
   pg (= 0.15.1)
+  puma
   rails (= 4.0.8)
   rails_12factor (= 0.0.2)
   rspec-rails (= 2.13.1)
@@ -245,3 +247,9 @@ DEPENDENCIES
   turbolinks (= 1.1.1)
   uglifier (= 2.1.1)
   will_paginate (= 3.0.4)
+
+RUBY VERSION
+   ruby 2.0.0p643
+
+BUNDLED WITH
+   1.12.5
