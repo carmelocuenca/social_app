@@ -1,18 +1,26 @@
+sudo: required
 language: ruby
 rvm:
-  - 2.0.0
-bundler_args: "--without production"
+- 2.0.0
+bundler_args: --without production
 addons:
   postgresql: '9.3'
 services:
-  - postgresql
+- postgresql
+- docker
 before_script:
-  - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
+- cp config/database.yml.travis config/database.yml
+- psql -c 'create database travis_ci_test;' -U postgres
+- RAILS_ENV=test bundle exec rake db:migrate --trace
 script:
-  - rake
+- rake
+after_script:
+- docker build -t carmelocuenca/social_app .
+- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker pull carmelocuenca/social_app
 notifications:
   email:
     on_success: always
     on_failure: always
+dd:
+  secure: jWBTBGPAe9g7MyAYK/cw5kdJm8KVQ14RJLbqMthO34XgYW/DIp7p6l5m3ui7xgmtI+AgzGrIE2G42KagPCd6qb6AtQ1jQP8IGeSVNdPbC72NqbwCPJzCn2g7jw2DPOmPq5oobJCKWOd+NBgtZcr4GsWgUxFOfOgWztr/sxIWvn+wI3DIWS4SGoUyC+Zo6RQd9qxFYbkE3tdK9+WYOttDs0eOe0qIsVeGCWcl20j4xn6mfq2o27EPJytPJiTpXFQQaTGa08yGt45PW4/355xvBoNBVQEu68UnpDx4TfsehnaGy8WgB+0LTteJCgnpfHQkklMCUfGOAUylcd2okOgXTZ5TMEtcU1J5dzcSHRq8Iwhy0I6ZVunmS5dWUEeq4glO/qBWqGMACg+XiNOs7TYKN3XwteEch8dwcUBN/ZlWrUT3/aMDwDQ/y6ocfcMV0LqiprHW8bIyo96f46uRVGSIzxsW9iJNQsXWW8pLLBIJC4k9S19C1QmlGY0eOwSdEnn7hzpb7E7u5lPTwpNzIKm2N1D7EEBg21AQwVnVp7qq2Fym77LJONd7D2wcZlVK4vxKtomtVxOSfLMED4aLDvhhYutxXGoYsisEpzvaAES/h1NjOIWHjgLDoJGifgTMprI6NhdP+qUYjTePoHmP/ztsbefQamCCCliLXYCY7/JI0DY=
