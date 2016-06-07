@@ -19,7 +19,8 @@ script:
 - rake
 after_script:
 - docker build -t carmelocuenca/social_app .
-- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- echo "USERNAME=$DOCKER_USERNAME"
+#- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - docker pull carmelocuenca/social_app
 notifications:
   email:
