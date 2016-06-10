@@ -15,8 +15,8 @@ before_script:
 script:
 - rake
 after_script:
-- docker build --tag social-app:0.1 .
-- docker tag social-app:0.1 carmelocuenca/social-app:0.1
+- docker build --tag social-app .
+- docker tag social-app carmelocuenca/social-app:0.2
 - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 - docker push carmelocuenca/social-app:0.1
 notifications:
